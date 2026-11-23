@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://esuntpd6apyk"]
 
-[ext_resource type="Script" uid="uid://dubo75ctdmtfd" path="res://scenes/player.gd" id="1_dqkch"]
+[ext_resource type="Script" uid="uid://dubo75ctdmtfd" path="res://scripts/player.gd" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://blihbgdktvlqa" path="res://resources/idle.png" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bonfsgu30h0v3" path="res://resources/left.png" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://xidtleihnpkf" path="res://resources/right.png" id="3_qlg0r"]
@@ -117,7 +117,7 @@ script = ExtResource("1_dqkch")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1048306117]
 sprite_frames = SubResource("SpriteFrames_u8vuu")
 animation = &"idle"
-frame_progress = 0.44242233
+frame_progress = 0.36281785
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=331157772]
 position = Vector2(-0.5, 1)
