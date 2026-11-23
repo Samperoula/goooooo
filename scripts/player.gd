@@ -1,25 +1,65 @@
 extends CharacterBody2D
-const test = 1
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const max_speed = 100
+const accel = 1500
+const friction = 4000
+var current_dir = "none"
 
+func _ready():
+	$AnimatedSprite2D.play("idle")
 
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		print("Key: ", event.as_text(), " | Echo: ", event.is_echo())
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+var input = Vector2.ZERO
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
+func _physics_process(delta):
+	player_movement(delta)
+
+func get_input():
+	input.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left")) 
+	input.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+	if input.x == 1:
+		current_dir = "right" 
+		play_anim(1)
+	elif input.x == -1:
+		current_dir = "left" 
+		play_anim(1)
+	elif input.y == 1 or input.y == -1:
+		play_anim(1) 
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+		play_anim(0)
+	return input.normalized()
+	
+func player_movement(delta):
+	input = get_input()
+	print(velocity)
+	if input == Vector2.ZERO:
+		if velocity.length() > (friction * delta):
+			velocity -= velocity.normalized() * (friction * delta)
+		else:
+			velocity = Vector2.ZERO
+	else:
+		velocity += (input * accel * delta)
+		velocity = velocity.limit_length(max_speed)
 	move_and_slide()
+
+func play_anim(movement):
+	var dir = current_dir
+	var anim = $AnimatedSprite2D 
+	
+	if dir == "right":
+		anim.flip_h = false
+		if movement == 1:
+			anim.play("right")
+		elif movement == 0:
+			anim.play("idle")
+	if dir == "left":
+		anim.flip_h = true
+		if movement == 1:
+			anim.play("right")
+		elif movement == 0:
+			anim.play("idle")
+	
+	

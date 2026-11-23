@@ -104,7 +104,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"right",
-"speed": 6.0
+"speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fulsm"]
@@ -117,7 +117,6 @@ script = ExtResource("1_dqkch")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1048306117]
 sprite_frames = SubResource("SpriteFrames_u8vuu")
 animation = &"idle"
-frame_progress = 0.36281785
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=331157772]
 position = Vector2(-0.5, 1)
